@@ -1,0 +1,13 @@
+apply from: "${rootProject.projectDir}/versions.gradle"
+
+apply plugin: "io.spring.dependency-management"
+apply plugin: "org.jetbrains.kotlin.plugin.spring"
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    implementation(project(':wci-core'))
+
+    // TODO: Figure out fucking WebSockets
+    // implementation("org.springframework.boot:spring-boot-starter-websocket:${versions.springBoot}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${versions.springBoot}")
+}

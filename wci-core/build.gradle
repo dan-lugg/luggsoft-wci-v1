@@ -1,0 +1,25 @@
+apply from: "${rootProject.projectDir}/versions.gradle"
+
+apply plugin: "com.gorylenko.gradle-git-properties"
+
+dependencies {
+    // Cucumber dependencies
+    implementation(platform("io.cucumber:cucumber-bom:${versions.cucumber}"))
+    implementation("io.cucumber:cucumber-java")
+    implementation("io.cucumber:cucumber-junit")
+
+    // Web dependencies
+    implementation(project(":wci-web"))
+
+    // Parser dependencies
+    implementation("com.github.h0tk3y.betterParse:better-parse:${versions.betterParse}")
+}
+
+gitProperties {
+    gitPropertiesName = "git.properties"
+}
+
+processResources {
+    dependsOn("generateGitProperties")
+    dependsOn(":wci-web:copyAngularApp")
+}

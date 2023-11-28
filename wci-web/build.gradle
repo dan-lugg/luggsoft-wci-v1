@@ -1,0 +1,27 @@
+apply plugin: "com.github.node-gradle.node"
+
+node {
+  // TODO: Configuration for download?
+}
+
+task buildAngularApp(type: NpxTask) {
+  command = "ng"
+  args = ["build", "--verbose", "--source-map", "--base-href", "/web/"]
+  inputs.dir(project.fileTree("src").exclude("**/*.spec.ts"))
+  inputs.dir("node_modules")
+  inputs.files("angular.json", ".browserslistrc", "tsconfig.json", "tsconfig.app.json")
+  outputs.dir("/dist")
+
+  dependsOn(tasks.npmInstall)
+}
+
+task copyAngularApp(type: Copy) {
+  from project(":wci-web").file("/dist")
+  into project(":wci-core").file("/src/main/resources/web")
+
+  dependsOn(tasks.buildAngularApp)
+}
+
+jar {
+  dependsOn(tasks.copyAngularApp)
+}

@@ -1,0 +1,57 @@
+plugins {
+    id "com.github.node-gradle.node" apply false
+    id "com.gorylenko.gradle-git-properties" apply false
+    id "io.spring.dependency-management" apply false
+    id "org.jetbrains.kotlin.jvm" apply false
+    id "org.jetbrains.kotlin.plugin.spring" apply false
+    id "org.springframework.boot" apply false
+}
+
+apply from: "${rootProject.projectDir}/versions.gradle"
+
+allprojects {
+    group = "com.luggsoft.wci"
+    version = "0.0.1-SNAPSHOT"
+}
+
+subprojects {
+    apply plugin: "org.jetbrains.kotlin.jvm"
+
+    repositories {
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+
+    dependencies {
+        // Kotlin
+        implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-scripting-jsr223")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+        // Jackson
+        implementation(platform("com.fasterxml.jackson:jackson-bom:${versions.jackson}"))
+        implementation("com.fasterxml.jackson.core:jackson-annotations")
+        implementation("com.fasterxml.jackson.core:jackson-core")
+        implementation("com.fasterxml.jackson.core:jackson-databind")
+        implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
+        implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+        implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+        // Jakarta Validation
+        implementation("jakarta.validation:jakarta.validation-api:${versions.jakarta}")
+
+        // JSON Schema Generation
+        implementation("com.github.victools:jsonschema-generator:${versions.jsonschema}")
+        implementation("com.github.victools:jsonschema-module-jackson:${versions.jsonschema}")
+        implementation("com.github.victools:jsonschema-module-javax-validation:${versions.jsonschema}")
+
+        // JVM Reflection
+        implementation("org.reflections:reflections:${versions.reflections}")
+    }
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
+}

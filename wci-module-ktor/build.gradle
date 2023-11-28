@@ -1,0 +1,9 @@
+apply from: "${rootProject.projectDir}/versions.gradle"
+
+apply plugin: "io.spring.dependency-management"
+apply plugin: "org.jetbrains.kotlin.plugin.spring"
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    implementation(project(':wci-core'))
+}

@@ -1,0 +1,23 @@
+apply from: "${rootProject.projectDir}/versions.gradle"
+
+apply plugin: "io.spring.dependency-management"
+apply plugin: "org.jetbrains.kotlin.plugin.spring"
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    implementation(platform("io.cucumber:cucumber-bom:${versions.cucumber}"))
+    implementation("io.cucumber:cucumber-java")
+    implementation("io.cucumber:cucumber-junit")
+
+    implementation(project(':wci-core',))
+    implementation(project(':wci-module-ktor',))
+    implementation(project(':wci-module-spring',))
+
+    // TODO: Figure out fucking WebSockets
+    // implementation("org.springframework.boot:spring-boot-starter-websocket:${versions.springBoot}")
+    implementation("org.springframework.boot:spring-boot-starter-web:${versions.springBoot}")
+
+    // TODO: Note -- Highly recommended
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+}

@@ -1,0 +1,29 @@
+pluginManagement {
+    apply from: "${rootProject.projectDir}/versions.gradle"
+
+    repositories {
+        gradlePluginPortal()
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+
+    plugins {
+        id "com.github.node-gradle.node" version "7.0.0"
+        id "io.spring.dependency-management" version "${versions.springDepMan}"
+        id "org.jetbrains.kotlin.jvm" version "${versions.kotlin}"
+        id "org.jetbrains.kotlin.plugin.spring" version "${versions.kotlin}"
+        id "org.springframework.boot" version "${versions.springBoot}"
+        id "com.gorylenko.gradle-git-properties" version "2.4.1"
+    }
+}
+
+rootProject.name = "luggsoft-wci"
+
+include(
+        ':wci-core',
+        ':wci-example',
+        ':wci-module-aws',
+        ':wci-module-ktor',
+        ':wci-module-spring',
+        ':wci-web',
+)

@@ -1,0 +1,12 @@
+$blue: #135582;
+$red: #DB141B;
+$green: #45A548;
+$yellow: #FCB813;
+$teal: #169BA2;
+$headings-font-family: "Montserrat", sans-serif;
+$headings-font-weight: 700;
+$font-family-sans-serif: "Archivo", sans-serif;
+
+@import "~node_modules/bootstrap/scss/bootstrap";
+@import "~node_modules/font-awesome/scss/font-awesome";
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap');
