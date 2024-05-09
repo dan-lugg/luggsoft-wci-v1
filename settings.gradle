@@ -11,8 +11,6 @@ pluginManagement {
         id "com.github.ben-manes.versions" version "${versions.gradleVersions}"
         id "com.github.node-gradle.node" version "${versions.nodeGradle}"
         id "com.gorylenko.gradle-git-properties" version "${versions.gitProperties}"
-        id "io.spring.dependency-management" version "${versions.springDepMan}"
-        id "java"
         id "org.gradle.toolchains.foojay-resolver-convention" version "${versions.foojayResolver}"
         id "org.jetbrains.kotlin.jvm" version "${versions.kotlin}"
         id "org.jetbrains.kotlin.plugin.spring" version "${versions.kotlin}"
