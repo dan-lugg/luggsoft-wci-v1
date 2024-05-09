@@ -10,7 +10,7 @@ task buildAngularApp(type: NpxTask) {
   inputs.dir(project.fileTree("src").exclude("**/*.spec.ts"))
   inputs.dir("node_modules")
   inputs.files("angular.json", ".browserslistrc", "tsconfig.json", "tsconfig.app.json")
-  outputs.dir("/dist")
+  outputs.dir("./dist")
 
   dependsOn(tasks.npmInstall)
 }
