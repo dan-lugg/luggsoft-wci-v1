@@ -4,6 +4,14 @@ apply plugin: "io.spring.dependency-management"
 apply plugin: "org.jetbrains.kotlin.plugin.spring"
 apply plugin: "org.springframework.boot"
 
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
 dependencies {
     implementation(project(':wci-core'))
 

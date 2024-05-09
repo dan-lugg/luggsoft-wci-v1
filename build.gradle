@@ -1,4 +1,5 @@
 plugins {
+    id "com.github.ben-manes.versions" apply false
     id "com.github.node-gradle.node" apply false
     id "com.gorylenko.gradle-git-properties" apply false
     id "io.spring.dependency-management" apply false
@@ -11,11 +12,17 @@ apply from: "${rootProject.projectDir}/versions.gradle"
 
 allprojects {
     group = "com.luggsoft.wci"
-    version = "0.0.1-SNAPSHOT"
+    version "${System.getenv("RELEASE_VERSION")}"
 }
 
 subprojects {
+    apply plugin: "com.github.ben-manes.versions"
+    apply plugin: "maven-publish"
     apply plugin: "org.jetbrains.kotlin.jvm"
+
+    kotlin {
+        jvmToolchain(17)
+    }
 
     repositories {
         maven { url "https://repo.spring.io/milestone" }
@@ -51,7 +58,22 @@ subprojects {
         implementation("org.reflections:reflections:${versions.reflections}")
     }
 
-    compileKotlin {
-        kotlinOptions.jvmTarget = "17"
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/dan-lugg/luggsoft-wci")
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                    password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+
+        publications {
+            gpr(MavenPublication) {
+                from(components.java)
+            }
+        }
     }
 }

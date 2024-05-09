@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="luggsoft-wci [clean]" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="luggsoft-wci [dependencyUpdates]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,12 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="clean" />
-          <option value="wci-core:clean" />
-          <option value="wci-example:clean" />
-          <option value="wci-module-aws:clean" />
-          <option value="wci-module-ktor:clean" />
-          <option value="wci-web:clean" />
+          <option value="dependencyUpdates" />
         </list>
       </option>
       <option name="vmOptions" />
