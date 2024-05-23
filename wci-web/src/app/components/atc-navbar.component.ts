@@ -7,11 +7,11 @@ import {SelectSystemPropertiesResult} from "./select-system-properties.result";
         <nav class="navbar navbar-dark bg-primary border-bottom navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="/assets/amrp_logo.svg" alt="ATC" class="me-2" />
                     <!--
-                    <span class="me-2 fa fa-bolt"></span>
+                    <img src="/assets/amrp_logo.svg" alt="ATC" class="me-2" />
                     -->
-                    <span class="me-2">ATC</span>
+                    <span class="me-2 fa fa-bolt"></span>
+                    <span class="me-2">WCI</span>
                     <span class="me-2">&bull;</span>
                     <span class="me-2">{{this.instanceName}}</span>
                 </a>

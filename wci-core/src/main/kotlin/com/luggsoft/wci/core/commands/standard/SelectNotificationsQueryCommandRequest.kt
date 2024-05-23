@@ -1,6 +1,6 @@
 package com.luggsoft.wci.core.commands.standard
 
-import com.luggsoft.wci.core.commands.await.AwaitCommandRequest
+import com.luggsoft.wci.core.commands.query.QueryCommandRequest
 import com.luggsoft.wci.core.web.WebInfo
 import java.time.Instant
 import java.util.UUID
@@ -10,7 +10,7 @@ import java.util.UUID
     description = "Queries for the notifications from a particular source channel, during a particular time window.",
     isSystem = true,
 )
-data class SelectNotificationsAwaitCommandRequest(
+data class SelectNotificationsQueryCommandRequest(
     @field:WebInfo(
         title = "Source ID",
         description = "The notification source channel ID.",
@@ -28,4 +28,4 @@ data class SelectNotificationsAwaitCommandRequest(
         description = "The end date/time for the notification source channel query."
     )
     val untilInstant: Instant = Instant.now(),
-) : AwaitCommandRequest<SelectNotificationsAwaitCommandResult>
+) : QueryCommandRequest<SelectNotificationsQueryCommandResult>

@@ -1,6 +1,7 @@
 ext.versions = [
         "betterParse"   : "0.4.4",
         "cucumber"      : "7.14.0",
+        "exposed"       : "0.50.1",
         "foojayResolver": "0.8.0",
         "gitProperties" : "2.4.1",
         "gradleVersions": "0.51.0",

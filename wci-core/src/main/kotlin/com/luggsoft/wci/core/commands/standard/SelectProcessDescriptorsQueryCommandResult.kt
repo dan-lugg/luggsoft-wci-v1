@@ -1,8 +1,8 @@
 package com.luggsoft.wci.core.commands.standard
 
-import com.luggsoft.wci.core.commands.await.AwaitCommandResult
+import com.luggsoft.wci.core.commands.query.QueryCommandResult
 import com.luggsoft.wci.core.process.ProcessDescriptor
 
-data class SelectProcessDescriptorsAwaitCommandResult(
+data class SelectProcessDescriptorsQueryCommandResult(
     val processDescriptors: List<ProcessDescriptor>
-) : AwaitCommandResult
+) : QueryCommandResult

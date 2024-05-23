@@ -1,0 +1,25 @@
+apply from: "${rootProject.projectDir}/versions.gradle"
+
+apply plugin: "org.jetbrains.kotlin.plugin.spring"
+apply plugin: "org.springframework.boot"
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+    implementation(project(":wci-core"))
+
+    implementation(platform("org.jetbrains.exposed:exposed-bom:${versions.exposed}"))
+    implementation "org.jetbrains.exposed:exposed-core"
+    implementation "org.jetbrains.exposed:exposed-crypt"
+    implementation "org.jetbrains.exposed:exposed-java-time"
+    implementation "org.jetbrains.exposed:exposed-jdbc"
+    implementation "org.jetbrains.exposed:exposed-json"
+    implementation "org.jetbrains.exposed:exposed-money"
+    implementation "org.jetbrains.exposed:exposed-spring-boot-starter"
+}

@@ -1,6 +1,6 @@
 package com.luggsoft.wci.core.commands.standard
 
-import com.luggsoft.wci.core.commands.await.AwaitCommandRequest
+import com.luggsoft.wci.core.commands.query.QueryCommandRequest
 import com.luggsoft.wci.core.web.WebInfo
 
 @WebInfo(
@@ -8,4 +8,4 @@ import com.luggsoft.wci.core.web.WebInfo
     description = "Queries for the process descriptors for executing processes.",
     isSystem = true
 )
-class SelectProcessDescriptorsAwaitCommandRequest : AwaitCommandRequest<SelectProcessDescriptorsAwaitCommandResult>
+class SelectProcessDescriptorsQueryCommandRequest : QueryCommandRequest<SelectProcessDescriptorsQueryCommandResult>
