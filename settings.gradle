@@ -26,5 +26,6 @@ include(
         ':wci-module-aws',
         ':wci-module-ktor',
         ':wci-module-spring',
+        ':wci-module-exposed',
         ':wci-web',
 )

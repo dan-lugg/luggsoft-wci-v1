@@ -1,20 +1,20 @@
 package com.luggsoft.wci.core.commands.standard
 
 import com.luggsoft.wci.core.commands.CommandContext
-import com.luggsoft.wci.core.commands.await.AwaitCommandHandlerBase
+import com.luggsoft.wci.core.commands.query.QueryCommandHandlerBase
 import com.luggsoft.wci.core.system.InstanceNameProvider
 import com.luggsoft.wci.core.system.ServerVersionProvider
 import com.luggsoft.wci.core.system.UptimeDurationProvider
 
-class SelectSystemPropertiesAwaitCommandHandler(
+class SelectSystemPropertiesQueryCommandHandler(
     private val instanceNameProvider: InstanceNameProvider,
     private val serverVersionProvider: ServerVersionProvider,
     private val uptimeDurationProvider: UptimeDurationProvider,
-) : AwaitCommandHandlerBase<SelectSystemPropertiesAwaitCommandRequest, SelectSystemPropertiesAwaitCommandResult>()
+) : QueryCommandHandlerBase<SelectSystemPropertiesQueryCommandRequest, SelectSystemPropertiesQueryCommandResult>()
 {
-    override fun handle(request: SelectSystemPropertiesAwaitCommandRequest, context: CommandContext): SelectSystemPropertiesAwaitCommandResult
+    override fun handle(request: SelectSystemPropertiesQueryCommandRequest, context: CommandContext): SelectSystemPropertiesQueryCommandResult
     {
-        return SelectSystemPropertiesAwaitCommandResult(
+        return SelectSystemPropertiesQueryCommandResult(
             instanceName = this.instanceNameProvider.getInstanceName(),
             serverVersion = this.serverVersionProvider.getServerVersion(),
             uptimeDuration = this.uptimeDurationProvider.getUptimeDuration()

@@ -1,16 +1,16 @@
 package com.luggsoft.wci.core.commands.standard
 
 import com.luggsoft.wci.core.commands.CommandContext
-import com.luggsoft.wci.core.commands.await.AwaitCommandHandlerBase
+import com.luggsoft.wci.core.commands.query.QueryCommandHandlerBase
 import com.luggsoft.wci.core.notifications.NotificationStore
 
-class SelectNotificationsAwaitCommandHandler(
+class SelectNotificationsQueryCommandHandler(
     private val notificationStore: NotificationStore,
-) : AwaitCommandHandlerBase<SelectNotificationsAwaitCommandRequest, SelectNotificationsAwaitCommandResult>()
+) : QueryCommandHandlerBase<SelectNotificationsQueryCommandRequest, SelectNotificationsQueryCommandResult>()
 {
-    override fun handle(request: SelectNotificationsAwaitCommandRequest, context: CommandContext): SelectNotificationsAwaitCommandResult
+    override fun handle(request: SelectNotificationsQueryCommandRequest, context: CommandContext): SelectNotificationsQueryCommandResult
     {
-        return SelectNotificationsAwaitCommandResult(
+        return SelectNotificationsQueryCommandResult(
             notifications = this.notificationStore.selectNotificationList(
                 sourceId = request.sourceId,
                 startInstant = request.startInstant,

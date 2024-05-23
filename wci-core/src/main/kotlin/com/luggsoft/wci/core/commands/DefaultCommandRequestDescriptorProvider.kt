@@ -1,7 +1,7 @@
 package com.luggsoft.wci.core.commands
 
 import com.luggsoft.wci.core.commands.async.AsyncCommandRequest
-import com.luggsoft.wci.core.commands.await.AwaitCommandRequest
+import com.luggsoft.wci.core.commands.query.QueryCommandRequest
 import com.luggsoft.wci.core.search.Criteria
 import com.luggsoft.wci.core.util.ClassScanner
 import com.luggsoft.wci.core.util.scanSubClasses
@@ -54,7 +54,7 @@ class DefaultCommandRequestDescriptorProvider(
     private fun getCommandExecutionType(commandRequestClass: Class<*>): CommandExecutionType = when
     {
         AsyncCommandRequest::class.java.isAssignableFrom(commandRequestClass) -> CommandExecutionType.ASYNC
-        AwaitCommandRequest::class.java.isAssignableFrom(commandRequestClass) -> CommandExecutionType.AWAIT
+        QueryCommandRequest::class.java.isAssignableFrom(commandRequestClass) -> CommandExecutionType.AWAIT
         else -> TODO("Unusable assignment type, for $commandRequestClass")
     }
     

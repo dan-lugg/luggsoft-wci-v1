@@ -18,13 +18,12 @@
 ## Overview
 
 
-**Luggsoft, WCI**, otherwise known as, the  **Web Command Interface**, is a task execution framework. One of the key use-cases is converting test suites into first-class, AWS-deployed applications. These applications are intended to be deployed alongside the project(s) they are intended to test.
+Welcome to **WCI**, Web Command Interface, a generic task execution framework.
 
-TODO: More information for the overview.
+WCI is a framework intended to enable primarily back-end software engineering teams in deploying back-office applications for non-technical users without the support of front-end engineering capabilities. One of the original use-cases is converting test suites into first-class, cloud-deployed applications. These applications are intended to be deployed alongside the project(s) they are intended to test.
 
-> 🤔 **Q** &ndash; TODO Question.
->
-> 😊 **Q** &ndash; TODO Answer.
+> [!IMPORTANT]
+> TODO: More information for the overview.
 
 ## Feature Roadmap
 
@@ -33,17 +32,17 @@ gantt
     title WCI Feature Roadmap
     dateFormat YYYY-MM-DD
     section Version 0.1
-        Core Server Codebase  : done,   cf1,  2023-10-15, 2023-11-05
-        Core Spring Codebase  : done,   cf2,  2023-10-20, 2023-11-05
-        Example Application   : done,   cf3,  2023-10-20, 2023-11-01
-        Await Commands        : active, cf4,  2023-11-01, 15d
-        Async Commands        : active, cf5,  2023-11-13, 15d
-        Notification Channels : crit,   cf6,  2023-11-20, 15d
-        Core Client Codebase  : crit,   cf7,  2023-10-25, 50d
-        SAML/Ping             : crit,   cf8,  2023-12-04, 10d
-        Formly Search         :         cf9,  2023-11-17, 9d
-        AWS Resources         : crit,   cf10, 2023-11-25, 10d
-        Web Refactoring       :         cf11, 2023-12-05, 20d
+        Core Server Codebase  : done,   cf1,  2024-05-15, 2023-11-05
+        Core Spring Codebase  : done,   cf2,  2024-05-20, 2023-11-05
+        Example Application   : done,   cf3,  2024-05-20, 2023-11-01
+        Await Commands        : active, cf4,  2024-06-01, 15d
+        Async Commands        : active, cf5,  2024-06-13, 15d
+        Notification Channels : crit,   cf6,  2024-06-20, 15d
+        Core Client Codebase  : crit,   cf7,  2024-05-25, 50d
+        SAML/Ping             : crit,   cf8,  2024-07-04, 10d
+        Formly Search         :         cf9,  2024-05-17, 9d
+        AWS Resources         : crit,   cf10, 2024-05-25, 10d
+        Web Refactoring       :         cf11, 2024-07-05, 20d
 ```
 
 ### Item Drilldown
@@ -67,11 +66,11 @@ TODO: More information about conventions.
 
 Commands comprise the core of all interactivity with a given deployed WCI project instance. Commands represent arbitrary requests, executions, and the corresponding results.
 
-There are two main base-types for all user-defined commands; "**await**" commands, and "**async**" commands.
+There are two main base-types for all user-defined commands; "**query**" commands, and "**async**" commands.
 
-#### Await Commands
+#### Query Commands
 
-Commands of the type "**await**" are commands that should process and return immediately. The result returned should be the output of the command.
+Commands of the type "**query**" are commands that should process and return immediately. The result returned should be the output of the command.
 
 They should be short-lived executions, including:
 
@@ -80,11 +79,11 @@ They should be short-lived executions, including:
 - Simple record changes
   - Singular create / update / delete
 
-The command-related classes for "**await**" commands are:
+The command-related classes for "**query**" commands are:
 
-- `AwaitCommandResult`
-- `AwaitCommandRequest<TResult>`
-- `AwaitCommandHandler<TRequest, TResult>`
+- `QueryCommandResult`
+- `QueryCommandRequest<TResult>`
+- `QueryCommandHandler<TRequest, TResult>`
 
 #### Async Commands
 
@@ -111,25 +110,26 @@ In order to make commands immediately recognizable, certain naming conventions o
 
 The command prefixes follow the "SCUDI" pattern of select, create, update, delete, invoke; similar to "CRUD", as in, create, read, update, delete.
 
-| Prefix   | Intent                                                                                                                         | Idempotent | Async/Await        |
+| Prefix   | Intent                                                                                                                         | Idempotent | Async/Query        |
 |----------|--------------------------------------------------------------------------------------------------------------------------------|------------|--------------------|
-| `Select` | For "read" operations. Analogous to an HTTP `GET` request, or SQL `SELECT` statement.                                          | 🟢 Yes     | Probably `await`   |
-| `Create` | For "write" operations that create a resource. Analogous to an HTTP `POST` request, or `INSERT` statement.                     | 🟢 Yes     | Probably `await`   |
-| `Update` | For "write" operations that update a resource. Analogous to an HTTP `PUT`/`PATCH` request, or SQL `UPDATE`/`UPSERT` statement. | 🟡 Maybe   | Probably `await`   |
-| `Delete` | For "write" operations that delete a resource. Analogous to an HTTP `DELETE` request, or SQL `DELETE` statement                | 🟢 Yes     | Probably `await`   |
+| `Select` | For "read" operations. Analogous to an HTTP `GET` request, or SQL `SELECT` statement.                                          | 🟢 Yes     | Probably `query`   |
+| `Create` | For "write" operations that create a resource. Analogous to an HTTP `POST` request, or `INSERT` statement.                     | 🟢 Yes     | Probably `query`   |
+| `Update` | For "write" operations that update a resource. Analogous to an HTTP `PUT`/`PATCH` request, or SQL `UPDATE`/`UPSERT` statement. | 🟡 Maybe   | Probably `query`   |
+| `Delete` | For "write" operations that delete a resource. Analogous to an HTTP `DELETE` request, or SQL `DELETE` statement                | 🟢 Yes     | Probably `query`   |
 | `Invoke` | For "execution" operations that invoke a long-lived task or processor.                                                         | 🔴 No      | Definitely `async` |
 
-> 🤓 **Editorial** &ndash; Yes, they're all 6 characters for a reason, because that's a good reason.
+> [!NOTE]
+> Yes, they're all 6 characters for a reason, because that's a good reason.
 
 ##### Suffixes
 
-The defined framework classes of `CommandResult`, `WciCommandRequest`, and `CommandHandler` are not intended to be used directly. Instead, the applicable "**await**" or "**async**" base types should be implemented when creating user-defined command classes.
+The defined framework classes of `CommandResult`, `CommandRequest`, and `CommandHandler` are not intended to be used directly. Instead, the applicable "**query**" or "**async**" base types should be implemented when creating user-defined command classes.
 
-In the case of "**await**", the classes are:
+In the case of "**query**", the classes are:
 
-- `AwaitCommandResult`
-- `AwaitCommandRequest`
-- `AwaitCommandHandler`
+- `QueryCommandResult`
+- `QueryCommandRequest`
+- `QueryCommandHandler`
 
 In the case of "**async**" the classes are:
 
@@ -141,51 +141,50 @@ These full suffixes should be incorporated into the class naming strategy for al
 
 | Suffix   | Intent                                                                                                                                   | Returns                                      |
 |----------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| `Await*` | For commands that return immediately, such as data queries, single resource creation functions, etc.                                     | The resulting data, implementation specific. |
+| `Query*` | For commands that return immediately, such as data queries, single resource creation functions, etc.                                     | The resulting data, implementation specific. |
 | `Async*` | For commands that start a long-lived process or thread, such as test invocations, complex batchh create / update / delete processes, etc. | A descriptor of the started process.         |
 
-> 🤓 **Editorial** &ndash; These might not be the most *correct* names, but they describe intent accurately enough for the purpose of this framework. Please feel free to propose alternatives.
+> [!NOTE]
+> These might not be the most *correct* names, but they describe intent accurately enough for the purpose of this framework. Please feel free to propose alternatives.
 
-##### Notes
-
-> 🤔 **Q** &ndash; Doesn't that mean the names will be pretty darn long?
+> [!NOTE]
+> Doesn't that mean the names will be pretty darn long?
 >
-> 😊 **A** &ndash; Yes. It's Java after all, right? Home of the `NodeFactoryBuilderFactoryFactoryBuilder`.
-
-> 🤔 **Q** &ndash; TODO Question.
->
-> 😊 **Q** &ndash; TODO Answer.
+> **Yes. It's Java after all, right? Home of the `NodeFactoryBuilderFactoryFactoryBuilder`.**
 
 #### Inheritance and Naming
 
 ##### `*CommandResult`
 
-- Should follow the convention of `<name>[Async|Await]CommandResult`. For example, `SelectUserAwaitCommandResult`.
-- Must implement `[Async|Await]CommandResult`.
-    - For example `SelectUserAwaitCommandResult : AwaitCommandResult`
+- Should follow the convention of `<name>[Async|Query]CommandResult`. For example, `SelectUserQueryCommandResult`.
+- Must implement `[Async|Query]CommandResult`.
+    - For example `SelectUserQueryCommandResult : QueryCommandResult`
 
-##### `*WciCommandRequest`
+##### `*CommandRequest`
 
-- Should follow the convention of `<name>[Async|Await]WciCommandRequest`. For example, `SelectUserAwaitCommandRequest`.
-- Must implement `[Async|Await]WciCommandRequest` with the appropriate type parameters.
-    - For example, `SelectUserCommandRequest : WciCommandRequest<SelectUserCommandResult>`.
+- Should follow the convention of `<name>[Async|Query]CommandRequest`. For example, `SelectUserQueryCommandRequest`.
+- Must implement `[Async|Query]CommandRequest` with the appropriate type parameters.
+    - For example, `SelectUserCommandRequest : CommandRequest<SelectUserCommandResult>`.
 
 ##### `*CommandHandler`
 
-- Should follow the convention of `<name>[Async|Await]CommandHandler`. For example, `SelectUserAwaitCommandHandler`.
-- Must implement `[Async|Await]CommandHandler` with the appropriate type parameters.
-    - For example, `SelectUserAwaitCommandHandler : CommandExecutor<SelectUserAwaitCommandRequest, SelectUserAwaitCommandResult>`
+- Should follow the convention of `<name>[Async|Query]CommandHandler`. For example, `SelectUserQueryCommandHandler`.
+- Must implement `[Async|Query]CommandHandler` with the appropriate type parameters.
+    - For example, `SelectUserQueryCommandHandler : CommandExecutor<SelectUserQueryCommandRequest, SelectUserQueryCommandResult>`
 
 ## Development Notes
 
-- The `wci-web` project is configured to build into:
-    ```shell
-    luggsoft-wci-core-spring/src/main/resources/web
-    ``` 
-  You need to build the web application first, by running
-    ```shell
-    ng build --base-href=/web/
-    ```
+> [!IMPORTANT]
+> The `wci-web` project is configured to build into:
+>    ```shell
+>    luggsoft-wci-core-spring/src/main/resources/web
+>    ``` 
+
+> [!IMPORTANT]
+> You need to build the web application first, by running
+>    ```shell
+>    ng build --base-href=/web/
+>    ```
 
 ## Web Map
 
@@ -274,3 +273,25 @@ wci: # Root property
             params:
                 ttl: 86400
 ```
+
+## Deployment Architectures
+
+### Dedicated Application
+
+> [!IMPORTANT]
+> TODO -- ECS, local, etc.
+
+### Distributed Application
+
+> [!IMPORTANT]
+> TODO -- Lambda, Cloud Functions, etc.
+
+#### Cloud Services, AWS
+
+> [!IMPORTANT]
+> TODO Lambda, etc.
+
+#### Cloud Services, GCP
+
+> [!IMPORTANT]
+> TODO Cloudfunctions, etc.
