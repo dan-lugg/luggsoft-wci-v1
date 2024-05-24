@@ -17,8 +17,10 @@
 
 ## Overview
 
-
 Welcome to **WCI**, Web Command Interface, a generic task execution framework.
+
+> [!CAUTION]
+> This project is currently undergoing a major refactor into **WTF: WebTask Framework**. Please check back soon for more information.
 
 WCI is a framework intended to enable primarily back-end software engineering teams in deploying back-office applications for non-technical users without the support of front-end engineering capabilities. One of the original use-cases is converting test suites into first-class, cloud-deployed applications. These applications are intended to be deployed alongside the project(s) they are intended to test.
 
